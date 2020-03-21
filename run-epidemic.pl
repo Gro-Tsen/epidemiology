@@ -69,19 +69,19 @@ use constant {
     ## Average number of edges per node
     edges_per_node => 5,
     ## Probability of connecting to a random node instead of a random edge
-    prob_unbiased => 0.2,
+    prob_unbiased => 0.15,
 
     ### Epidemic parameters ###
     ## Initial number of infected
     init_seeds => 20,
     ## Contagiousness per time step
-    contagiousness => 0.009,
+    contagiousness => 0.005,
     ## Recovery time (number of steps) starting at infection
-    recovery_time => 30,
+    recovery_time => 35,
     ## Incubation period (number of steps) starting at infection
     incubation_time => 5,
     ## Probability of purely random contamination (outside social graph)
-    extra_random_contagiousness => 0.01
+    extra_random_contagiousness => 0.004
 };
 
 printf STDERR "prob_unbiased = %f, contagiousness = %f, extra_random_contagiousness = %f\n", prob_unbiased, contagiousness, extra_random_contagiousness;
