@@ -151,8 +151,12 @@ my @generation_counts;
 ## History of stats
 my @history;
 ## More stats
+my $peak_infected = -1;
+my $peak_infected_step;
+my $peak_infected_attack;
 my $peak_infectious = -1;
 my $peak_infectious_step;
+my $peak_infectious_attack;
 my $total_attempted_infections = 0;
 my $peak_attempted_infections = -1;
 my $peak_attempted_infections_step;
@@ -224,9 +228,15 @@ sub step_time {
 	    }
 	}
     }
+    if ( $nb_exposed + $nb_infectious > $peak_infected ) {
+	$peak_infected = $nb_exposed + $nb_infectious;
+	$peak_infected_step = $step;
+	$peak_infected_attack = $nb_exposed + $nb_infectious + $nb_recovered;
+    }
     if ( $nb_infectious > $peak_infectious ) {
 	$peak_infectious = $nb_infectious;
 	$peak_infectious_step = $step;
+	$peak_infectious_attack = $nb_exposed + $nb_infectious + $nb_recovered;
     }
     $total_attempted_infections += $attempted_infections;
     if ( $attempted_infections > $peak_attempted_infections ) {
@@ -261,7 +271,8 @@ close GENSTATS;
 
 printf STDERR "finished in %d steps\n", $step;
 printf STDERR "final attack rate: %f\n", $nb_recovered/scalar(@social_graph);
-printf STDERR "peak infectious fraction: %f (at step %d)\n", $peak_infectious/scalar(@social_graph), $peak_infectious_step;
+printf STDERR "peak infected fraction: %f (at step %d: attack rate %f)\n", $peak_infected/scalar(@social_graph), $peak_infected_step, $peak_infected_attack/scalar(@social_graph);
+printf STDERR "peak infectious fraction: %f (at step %d: attack rate %f)\n", $peak_infectious/scalar(@social_graph), $peak_infectious_step, $peak_infectious_attack/scalar(@social_graph);
 printf STDERR "total attempted infections: %d\n", $total_attempted_infections;
 printf STDERR "peak attempted infections: %d (at step %d)\n", $peak_attempted_infections, $peak_attempted_infections_step;
 printf STDERR "peak actual infections: %d (at step %d)\n", $peak_actual_infections, $peak_actual_infections_step;
@@ -270,7 +281,7 @@ my $slope_ival = 20;
 my $maxslope = 0;  my $maxslope_step = -1;
 for ( $step=0 ; $step<scalar(@history)-$slope_ival ; $step++ ) {
     if ( $history[$step][3] > sqrt(nbnodes) ) {
-	my $thisslope = $history[$step+$slope_ival][3]/$history[$step][3];
+	my $thisslope = ($history[$step+$slope_ival][2]+$history[$step+$slope_ival][3])/($history[$step][2]+$history[$step][3]);
 	if ( $thisslope > $maxslope ) {
 	    $maxslope = $thisslope;
 	    $maxslope_step = $step;
