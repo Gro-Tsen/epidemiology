@@ -88,6 +88,8 @@ printf STDERR "prob_unbiased = %f, contagiousness = %f, extra_random_contagiousn
 
 ## Nodes of the social graph, each a ref to a hash of connected nodes
 my @social_graph;
+## Number of edges in social graph
+my $social_edges_cnt = 0;
 
 sub generate_social_graph {
     my @social_edges;
@@ -109,13 +111,19 @@ sub generate_social_graph {
 		$social_graph[$i]{$k} = 1;
 		$social_graph[$k]{$i} = 1;
 		push @social_edges, [$i, $k];
+		$social_edges_cnt++;
 	    }
 	} while ( rand(edges_per_node) >= 1 );
     }
-    printf STDERR "social network has %d nodes, %d edges\n", scalar(@social_graph), scalar(@social_edges);
 }
 
 generate_social_graph;
+
+if ( contagiousness > 0 ) {
+    printf STDERR "social network has %d nodes, %d edges\n", scalar(@social_graph), $social_edges_cnt;
+} else {
+    printf STDERR "no social network (purely random contagion)\n";
+}
 
 # print "graph social {\n";
 # for ( my $i=0 ; $i<scalar(@social_graph) ; $i++ ) {
