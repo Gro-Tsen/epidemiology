@@ -299,6 +299,19 @@ for ( $step=0 ; $step<scalar(@history)-$slope_ival ; $step++ ) {
 
 printf STDERR "max log slope of infected cases is: %f per time step (between steps %d and %d)\n", log($maxslope)/$slope_ival, $maxslope_step, $maxslope_step+$slope_ival;
 
+printf STDERR "number of generations: %d\n", scalar(@generation_counts);
+
+my $peak_gen_infected = -1;
+my $peak_gen_infected_g;
+for ( my $g=0 ; $g<scalar(@generation_counts) ; $g++ ) {
+    if ( $generation_counts[$g] > $peak_gen_infected ) {
+	$peak_gen_infected = $generation_counts[$g];
+	$peak_gen_infected_g = $g;
+    }
+}
+
+printf STDERR "peak generation infected fraction: %f (at gen %d)\n", $peak_gen_infected/scalar(@social_graph), $peak_gen_infected_g;
+
 my $repnum_ival = 2;
 my $maxrepnum = 0;  my $maxrepnumg = -1;
 for ( my $g=0 ; $g<scalar(@generation_counts)-1 ; $g++ ) {
