@@ -1,0 +1,14 @@
+prob_unbiased = 1.000000, contagiousness = 0.000000, extra_random_contagiousness = 0.100000
+incubation_time = 5, recovery_time = 30
+no social network (purely random contagion)
+finished in 380 steps
+final attack rate: 0.893920
+peak infected fraction: 0.402023 (at step 168: attack rate 0.672783)
+peak infectious fraction: 0.342567 (at step 170: attack rate 0.694253)
+total attempted infections: 671606
+peak attempted infections: 10354 (at step 168)
+peak actual infections: 4353 (at step 151)
+max log slope of infected cases is: 0.061874 per time step (between steps 65 and 85)
+number of generations: 24
+peak generation infected fraction: 0.155283 (at gen 11)
+max generational reproduction number is: 2.443680 (between gens 4 and 6)

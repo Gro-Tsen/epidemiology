@@ -1,0 +1,14 @@
+prob_unbiased = 1.000000, contagiousness = 0.007000, extra_random_contagiousness = 0.000000
+incubation_time = 5, recovery_time = 30
+social network has 300000 nodes, 1500608 edges
+finished in 405 steps
+final attack rate: 0.598233
+peak infected fraction: 0.227233 (at step 157: attack rate 0.387943)
+peak infectious fraction: 0.192027 (at step 161: attack rate 0.414617)
+total attempted infections: 396453
+peak attempted infections: 5235 (at step 153)
+peak actual infections: 2435 (at step 144)
+max log slope of infected cases is: 0.073211 per time step (between steps 67 and 87)
+number of generations: 27
+peak generation infected fraction: 0.098760 (at gen 11)
+max generational reproduction number is: 2.440525 (between gens 5 and 7)
