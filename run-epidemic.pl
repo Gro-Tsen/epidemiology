@@ -85,6 +85,7 @@ use constant {
 };
 
 printf STDERR "prob_unbiased = %f, contagiousness = %f, extra_random_contagiousness = %f\n", prob_unbiased, contagiousness, extra_random_contagiousness;
+printf STDERR "incubation_time = %d, recovery_time = %d\n", incubation_time, recovery_time;
 
 ## Nodes of the social graph, each a ref to a hash of connected nodes
 my @social_graph;
